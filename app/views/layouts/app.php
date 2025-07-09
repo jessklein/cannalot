@@ -40,6 +40,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/inbox" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                            <i class="fas fa-inbox mr-3"></i>
+                            Inbox
+                        </a>
+                    </li>
+                    <li>
                         <a href="/clients" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
                             <i class="fas fa-building mr-3"></i>
                             Clients

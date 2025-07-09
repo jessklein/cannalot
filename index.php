@@ -55,6 +55,9 @@ try {
     $router->get('', 'DashboardController@index');
     $router->get('dashboard', 'DashboardController@index');
     
+    // Inbox routes
+    $router->get('inbox', 'InboxController@index');
+    
     // User routes
     $router->get('users', 'UsersController@index');
     $router->get('users/create', 'UsersController@create');
