@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "name": "Web Development",
+        "description": "Custom website development and maintenance",
+        "hourly_rate": 75,
+        "status": "active",
+        "category": "development",
+        "created_at": "2025-07-09 16:11:38"
+    },
+    {
+        "id": 2,
+        "name": "SEO Optimization",
+        "description": "Search engine optimization services",
+        "hourly_rate": 60,
+        "status": "active",
+        "category": "marketing",
+        "created_at": "2025-07-09 16:11:38"
+    },
+    {
+        "id": 3,
+        "name": "Database Management",
+        "description": "Database design and administration",
+        "hourly_rate": 85,
+        "status": "active",
+        "category": "development",
+        "created_at": "2025-07-09 16:11:38"
+    },
+    {
+        "id": 4,
+        "name": "Content Writing",
+        "description": "Professional content creation and copywriting",
+        "hourly_rate": 45,
+        "status": "active",
+        "category": "content",
+        "created_at": "2025-07-09 16:11:38"
+    },
+    {
+        "id": 5,
+        "name": "Server Maintenance",
+        "description": "Server monitoring and maintenance services",
+        "hourly_rate": 90,
+        "status": "active",
+        "category": "infrastructure",
+        "created_at": "2025-07-09 16:11:38"
+    }
+]

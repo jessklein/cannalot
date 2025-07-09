@@ -107,17 +107,27 @@ class FileDataManager
         $tickets = $this->loadData('tickets');
         $tasks = $this->loadData('tasks');
         $departments = $this->loadData('departments');
+        $services = $this->loadData('services');
+        $billing = $this->loadData('billing');
         
         $openTickets = array_filter($tickets, function($ticket) {
             return in_array($ticket['status'], ['open', 'in_progress']);
         });
         
         $pendingTasks = array_filter($tasks, function($task) {
-            return in_array($task['status'], ['todo', 'in_progress']);
+            return in_array($task['status'], ['todo', 'in_progress', 'pending']);
         });
         
         $activeClients = array_filter($clients, function($client) {
             return $client['status'] === 'active';
+        });
+        
+        $activeServices = array_filter($services, function($service) {
+            return $service['status'] === 'active';
+        });
+        
+        $pendingInvoices = array_filter($billing, function($bill) {
+            return in_array($bill['status'], ['pending', 'sent']);
         });
         
         return [
@@ -125,7 +135,10 @@ class FileDataManager
             'total_clients' => count($activeClients),
             'open_tickets' => count($openTickets),
             'pending_tasks' => count($pendingTasks),
-            'total_departments' => count($departments)
+            'total_departments' => count($departments),
+            'active_services' => count($activeServices),
+            'pending_invoices' => count($pendingInvoices),
+            'total_revenue' => array_sum(array_column($billing, 'amount'))
         ];
     }
     
@@ -180,6 +193,16 @@ class FileDataManager
     public function getAllUsers()
     {
         return $this->loadData('users');
+    }
+    
+    public function getAllServices()
+    {
+        return $this->loadData('services');
+    }
+    
+    public function getAllBilling()
+    {
+        return $this->loadData('billing');
     }
     
     private function loadData($type)

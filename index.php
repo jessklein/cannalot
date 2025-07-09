@@ -100,6 +100,24 @@ try {
     $router->post('departments/{id}', 'DepartmentsController@update');
     $router->post('departments/{id}/delete', 'DepartmentsController@destroy');
     
+    // Services routes
+    $router->get('services', 'ServicesController@index');
+    $router->get('services/create', 'ServicesController@create');
+    $router->post('services', 'ServicesController@store');
+    $router->get('services/{id}', 'ServicesController@show');
+    $router->get('services/{id}/edit', 'ServicesController@edit');
+    $router->post('services/{id}', 'ServicesController@update');
+    $router->post('services/{id}/delete', 'ServicesController@destroy');
+    
+    // Billing routes
+    $router->get('billing', 'BillingController@index');
+    $router->get('billing/create', 'BillingController@create');
+    $router->post('billing', 'BillingController@store');
+    $router->get('billing/{id}', 'BillingController@show');
+    $router->get('billing/{id}/edit', 'BillingController@edit');
+    $router->post('billing/{id}', 'BillingController@update');
+    $router->post('billing/{id}/delete', 'BillingController@destroy');
+    
     // Reports route
     $router->get('reports', 'ReportsController@index');
     $router->get('reports/export', 'ReportsController@export');

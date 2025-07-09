@@ -64,6 +64,18 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/services" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                            <i class="fas fa-cogs mr-3"></i>
+                            Services
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/billing" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                            <i class="fas fa-file-invoice-dollar mr-3"></i>
+                            Billing
+                        </a>
+                    </li>
+                    <li>
                         <a href="/reports" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
                             <i class="fas fa-chart-bar mr-3"></i>
                             Reports

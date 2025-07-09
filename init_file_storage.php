@@ -77,6 +77,30 @@ try {
     file_put_contents('data/tasks.json', json_encode($tasks, JSON_PRETTY_PRINT));
     echo "Tasks data created...\n";
     
+    // Sample services data
+    $services = [
+        ['id' => 1, 'name' => 'Web Development', 'description' => 'Custom website development and maintenance', 'hourly_rate' => 75.00, 'status' => 'active', 'category' => 'development', 'created_at' => date('Y-m-d H:i:s')],
+        ['id' => 2, 'name' => 'SEO Optimization', 'description' => 'Search engine optimization services', 'hourly_rate' => 60.00, 'status' => 'active', 'category' => 'marketing', 'created_at' => date('Y-m-d H:i:s')],
+        ['id' => 3, 'name' => 'Database Management', 'description' => 'Database design and administration', 'hourly_rate' => 85.00, 'status' => 'active', 'category' => 'development', 'created_at' => date('Y-m-d H:i:s')],
+        ['id' => 4, 'name' => 'Content Writing', 'description' => 'Professional content creation and copywriting', 'hourly_rate' => 45.00, 'status' => 'active', 'category' => 'content', 'created_at' => date('Y-m-d H:i:s')],
+        ['id' => 5, 'name' => 'Server Maintenance', 'description' => 'Server monitoring and maintenance services', 'hourly_rate' => 90.00, 'status' => 'active', 'category' => 'infrastructure', 'created_at' => date('Y-m-d H:i:s')],
+    ];
+    
+    file_put_contents('data/services.json', json_encode($services, JSON_PRETTY_PRINT));
+    echo "Services data created...\n";
+    
+    // Sample billing data
+    $billing = [
+        ['id' => 1, 'client_id' => 1, 'service_id' => 1, 'hours' => 20.5, 'amount' => 1537.50, 'billing_date' => date('Y-m-d'), 'due_date' => date('Y-m-d', strtotime('+30 days')), 'status' => 'pending', 'invoice_number' => 'INV-001', 'created_at' => date('Y-m-d H:i:s')],
+        ['id' => 2, 'client_id' => 2, 'service_id' => 2, 'hours' => 15.0, 'amount' => 900.00, 'billing_date' => date('Y-m-d', strtotime('-7 days')), 'due_date' => date('Y-m-d', strtotime('+23 days')), 'status' => 'sent', 'invoice_number' => 'INV-002', 'created_at' => date('Y-m-d H:i:s')],
+        ['id' => 3, 'client_id' => 3, 'service_id' => 3, 'hours' => 8.0, 'amount' => 680.00, 'billing_date' => date('Y-m-d', strtotime('-14 days')), 'due_date' => date('Y-m-d', strtotime('+16 days')), 'status' => 'paid', 'invoice_number' => 'INV-003', 'created_at' => date('Y-m-d H:i:s')],
+        ['id' => 4, 'client_id' => 4, 'service_id' => 4, 'hours' => 25.0, 'amount' => 1125.00, 'billing_date' => date('Y-m-d', strtotime('-21 days')), 'due_date' => date('Y-m-d', strtotime('+9 days')), 'status' => 'overdue', 'invoice_number' => 'INV-004', 'created_at' => date('Y-m-d H:i:s')],
+        ['id' => 5, 'client_id' => 5, 'service_id' => 5, 'hours' => 12.0, 'amount' => 1080.00, 'billing_date' => date('Y-m-d', strtotime('-3 days')), 'due_date' => date('Y-m-d', strtotime('+27 days')), 'status' => 'draft', 'invoice_number' => 'INV-005', 'created_at' => date('Y-m-d H:i:s')],
+    ];
+    
+    file_put_contents('data/billing.json', json_encode($billing, JSON_PRETTY_PRINT));
+    echo "Billing data created...\n";
+    
     echo "\n✅ File-based data storage initialized successfully!\n";
     echo "You can now access your dashboard at: http://cannalot.local/\n";
     echo "Sample login: john@example.com / password\n";

@@ -1,11 +1,11 @@
 <!-- Welcome Section -->
 <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-900"></h1>Dashboard</h1>
+    <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
     <p class="text-gray-600 mt-2">Welcome to your internal tools dashboard</p>
 </div>
 
 <!-- Dashboard Stats Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
     <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center">
             <div class="p-3 bg-blue-500 rounded-full">
@@ -53,7 +53,10 @@
             </div>
         </div>
     </div>
-    
+</div>
+
+<!-- Secondary Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
     <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center">
             <div class="p-3 bg-purple-500 rounded-full">
@@ -62,6 +65,42 @@
             <div class="ml-4">
                 <h3 class="text-lg font-semibold text-gray-700">Departments</h3>
                 <p class="text-3xl font-bold text-gray-900"><?= number_format($stats['total_departments']) ?></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 bg-indigo-500 rounded-full">
+                <i class="fas fa-cogs text-white text-xl"></i>
+            </div>
+            <div class="ml-4">
+                <h3 class="text-lg font-semibold text-gray-700">Active Services</h3>
+                <p class="text-3xl font-bold text-gray-900"><?= number_format($stats['active_services']) ?></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 bg-orange-500 rounded-full">
+                <i class="fas fa-file-invoice text-white text-xl"></i>
+            </div>
+            <div class="ml-4">
+                <h3 class="text-lg font-semibold text-gray-700">Pending Invoices</h3>
+                <p class="text-3xl font-bold text-gray-900"><?= number_format($stats['pending_invoices']) ?></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 bg-emerald-500 rounded-full">
+                <i class="fas fa-dollar-sign text-white text-xl"></i>
+            </div>
+            <div class="ml-4">
+                <h3 class="text-lg font-semibold text-gray-700">Total Revenue</h3>
+                <p class="text-3xl font-bold text-gray-900">$<?= number_format($stats['total_revenue'], 2) ?></p>
             </div>
         </div>
     </div>
