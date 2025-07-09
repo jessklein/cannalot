@@ -1,57 +1,11 @@
+<!-- Welcome Section -->
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900"></h1>Dashboard</h1>
+    <p class="text-gray-600 mt-2">Welcome to your internal tools dashboard</p>
+</div>
+
 <!-- Dashboard Stats Cards -->
-<div class="grid grid-cols-1 md<!-- Activity Overview -->
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-    <!-- Recent Tickets -->
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Recent Tickets</h3>
-        <div class="space-y-3">
-            <?php foreach (array_slice($recentTickets, 0, 5) as $ticket): ?>
-                <div class="flex items-center justify-between py-2 border-b border-gray-100">
-                    <div class="flex-1">
-                        <p class="text-sm font-medium text-gray-900"><?= htmlspecialchars($ticket['title']) ?></p>
-                        <p class="text-xs text-gray-500">Priority: 
-                            <span class="px-2 py-1 text-xs rounded-full 
-                                <?= $ticket['priority'] === 'high' ? 'bg-red-100 text-red-800' : 
-                                   ($ticket['priority'] === 'medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800') ?>">
-                                <?= ucfirst($ticket['priority']) ?>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="text-right">
-                        <span class="px-2 py-1 text-xs rounded-full 
-                            <?= $ticket['status'] === 'open' ? 'bg-red-100 text-red-800' : 
-                               ($ticket['status'] === 'in_progress' ? 'bg-blue-100 text-blue-800' : 
-                               ($ticket['status'] === 'resolved' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800')) ?>">
-                            <?= ucfirst(str_replace('_', ' ', $ticket['status'])) ?>
-                        </span>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-    
-    <!-- Recent Tasks -->
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Recent Tasks</h3>
-        <div class="space-y-3">
-            <?php foreach (array_slice($recentTasks, 0, 5) as $task): ?>
-                <div class="flex items-center justify-between py-2 border-b border-gray-100">
-                    <div class="flex-1">
-                        <p class="text-sm font-medium text-gray-900"><?= htmlspecialchars($task['title']) ?></p>
-                        <p class="text-xs text-gray-500">Due: <?= date('M j, Y', strtotime($task['due_date'])) ?></p>
-                    </div>
-                    <div class="text-right">
-                        <span class="px-2 py-1 text-xs rounded-full 
-                            <?= $task['status'] === 'todo' ? 'bg-gray-100 text-gray-800' : 
-                               ($task['status'] === 'in_progress' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800') ?>">
-                            <?= ucfirst(str_replace('_', ' ', $task['status'])) ?>
-                        </span>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</div>g:grid-cols-5 gap-6 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
     <div class="bg-white rounded-lg shadow p-6">
         <div class="flex items-center">
             <div class="p-3 bg-blue-500 rounded-full">
@@ -113,44 +67,137 @@
     </div>
 </div>
 
-<!-- Charts Row -->
+<!-- Activity Overview -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-    <!-- Sales Chart -->
+    <!-- Recent Tickets -->
     <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Sales Overview</h3>
-        <canvas id="salesChart" width="400" height="200"></canvas>
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Recent Tickets</h3>
+            <a href="/tickets" class="text-blue-500 hover:text-blue-700 text-sm">View All</a>
+        </div>
+        <div class="space-y-3">
+            <?php if (!empty($recentTickets)): ?>
+                <?php foreach (array_slice($recentTickets, 0, 5) as $ticket): ?>
+                    <div class="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900"><?= htmlspecialchars($ticket['title'] ?? 'Untitled') ?></p>
+                            <p class="text-xs text-gray-500">Priority: 
+                                <span class="px-2 py-1 text-xs rounded-full 
+                                    <?= ($ticket['priority'] ?? 'medium') === 'high' ? 'bg-red-100 text-red-800' : 
+                                       (($ticket['priority'] ?? 'medium') === 'medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800') ?>">
+                                    <?= ucfirst($ticket['priority'] ?? 'medium') ?>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="px-2 py-1 text-xs rounded-full 
+                                <?= ($ticket['status'] ?? 'open') === 'open' ? 'bg-red-100 text-red-800' : 
+                                   (($ticket['status'] ?? 'open') === 'in_progress' ? 'bg-blue-100 text-blue-800' : 
+                                   (($ticket['status'] ?? 'open') === 'resolved' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800')) ?>">
+                                <?= ucfirst(str_replace('_', ' ', $ticket['status'] ?? 'open')) ?>
+                            </span>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="text-gray-500 text-sm">No recent tickets</p>
+            <?php endif; ?>
+        </div>
     </div>
     
-    <!-- User Growth Chart -->
+    <!-- Recent Tasks -->
     <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">User Growth</h3>
-        <canvas id="userChart" width="400" height="200"></canvas>
-    </div>
-</div>
-
-<!-- Recent Users -->
-<div class="bg-white rounded-lg shadow">
-    <div class="p-6 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-700">Recent Users</h3>
-    </div>
-    <div class="p-6">
-        <div class="space-y-4">
-            <?php foreach ($recentUsers as $user): ?>
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                        <i class="fas fa-user text-white text-xs"></i>
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Recent Tasks</h3>
+            <a href="/tasks" class="text-blue-500 hover:text-blue-700 text-sm">View All</a>
+        </div>
+        <div class="space-y-3">
+            <?php if (!empty($recentTasks)): ?>
+                <?php foreach (array_slice($recentTasks, 0, 5) as $task): ?>
+                    <div class="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900"><?= htmlspecialchars($task['title'] ?? 'Untitled') ?></p>
+                            <p class="text-xs text-gray-500">
+                                <?php if (isset($task['due_date']) && $task['due_date']): ?>
+                                    Due: <?= date('M j, Y', strtotime($task['due_date'])) ?>
+                                <?php else: ?>
+                                    No due date
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="px-2 py-1 text-xs rounded-full 
+                                <?= ($task['status'] ?? 'pending') === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
+                                   (($task['status'] ?? 'pending') === 'in_progress' ? 'bg-blue-100 text-blue-800' : 
+                                   (($task['status'] ?? 'pending') === 'completed' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800')) ?>">
+                                <?= ucfirst(str_replace('_', ' ', $task['status'] ?? 'pending')) ?>
+                            </span>
+                        </div>
                     </div>
-                    <div class="flex-1">
-                        <p class="text-sm text-gray-600">
-                            <span class="font-medium"><?= htmlspecialchars($user['name']) ?></span> 
-                            (<?= htmlspecialchars($user['email']) ?>)
-                        </p>
-                        <p class="text-xs text-gray-400">Role: <?= ucfirst($user['role']) ?> • Joined <?= date('M j, Y', strtotime($user['created_at'])) ?></p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="text-gray-500 text-sm">No recent tasks</p>
+            <?php endif; ?>
         </div>
     </div>
 </div>
 
+<!-- Recent Users and Quick Actions -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Recent Users -->
+    <div class="lg:col-span-2 bg-white rounded-lg shadow">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-700">Recent Users</h3>
+                <a href="/users" class="text-blue-500 hover:text-blue-700 text-sm">View All</a>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                <?php if (!empty($recentUsers)): ?>
+                    <?php foreach (array_slice($recentUsers, 0, 5) as $user): ?>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-600">
+                                    <span class="font-medium"><?= htmlspecialchars($user['name'] ?? 'Unknown') ?></span> 
+                                    (<?= htmlspecialchars($user['email'] ?? 'No email') ?>)
+                                </p>
+                                <p class="text-xs text-gray-400">
+                                    Role: <?= ucfirst($user['role'] ?? 'user') ?> • 
+                                    Joined <?= isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'Unknown' ?>
+                                </p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="text-gray-500 text-sm">No recent users</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
 
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Quick Actions</h3>
+        <div class="space-y-3">
+            <a href="/clients/create" class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded text-center transition-colors">
+                <i class="fas fa-building mr-2"></i>New Client
+            </a>
+            <a href="/tickets/create" class="block w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded text-center transition-colors">
+                <i class="fas fa-ticket-alt mr-2"></i>New Ticket
+            </a>
+            <a href="/tasks/create" class="block w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded text-center transition-colors">
+                <i class="fas fa-tasks mr-2"></i>New Task
+            </a>
+            <a href="/departments/create" class="block w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded text-center transition-colors">
+                <i class="fas fa-sitemap mr-2"></i>New Department
+            </a>
+            <a href="/reports" class="block w-full bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded text-center transition-colors">
+                <i class="fas fa-chart-bar mr-2"></i>View Reports
+            </a>
+        </div>
+    </div>
+</div>
