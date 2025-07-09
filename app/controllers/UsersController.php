@@ -2,24 +2,24 @@
 
 namespace App\Controllers;
 
-use App\Models\User;
+require_once __DIR__ . '/../FileDataManager.php';
 
 /**
  * Users Controller
  */
 class UsersController extends BaseController 
 {
-    private $userModel;
+    private $dataManager;
     
     public function __construct()
     {
-        $this->userModel = new User();
+        $this->dataManager = new \FileDataManager();
     }
     
     public function index()
     {
         $page = \Request::get('page', 1);
-        $users = $this->userModel->paginate($page);
+        $users = $this->dataManager->getUsers($page);
         
         $this->view('users/index', [
             'title' => 'Users Management',
@@ -29,7 +29,7 @@ class UsersController extends BaseController
     
     public function show($id)
     {
-        $user = $this->userModel->find($id);
+        $user = $this->dataManager->getUserById($id);
         
         if (!$user) {
             \Session::flash('error', 'User not found.');
@@ -58,14 +58,20 @@ class UsersController extends BaseController
             $this->redirect('users/create');
         }
         
+        // Check if email already exists
+        if ($this->dataManager->getUserByEmail(\Request::get('email'))) {
+            \Session::flash('error', 'Email already exists.');
+            $this->redirect('users/create');
+        }
+        
         $data = [
             'name' => \Request::get('name'),
             'email' => \Request::get('email'),
-            'password' => password_hash(\Request::get('password'), PASSWORD_DEFAULT),
-            'created_at' => date('Y-m-d H:i:s')
+            'password' => \Request::get('password'),
+            'role' => \Request::get('role', 'user')
         ];
         
-        $userId = $this->userModel->create($data);
+        $userId = $this->dataManager->createUser($data);
         
         \Session::flash('success', 'User created successfully.');
         $this->redirect('users/' . $userId);
@@ -73,7 +79,7 @@ class UsersController extends BaseController
     
     public function edit($id)
     {
-        $user = $this->userModel->find($id);
+        $user = $this->dataManager->getUserById($id);
         
         if (!$user) {
             \Session::flash('error', 'User not found.');
@@ -98,15 +104,15 @@ class UsersController extends BaseController
         $data = [
             'name' => \Request::get('name'),
             'email' => \Request::get('email'),
-            'updated_at' => date('Y-m-d H:i:s')
+            'role' => \Request::get('role', 'user')
         ];
         
         // Update password if provided
         if (\Request::get('password')) {
-            $data['password'] = password_hash(\Request::get('password'), PASSWORD_DEFAULT);
+            $data['password'] = \Request::get('password');
         }
         
-        $this->userModel->update($id, $data);
+        $this->dataManager->updateUser($id, $data);
         
         \Session::flash('success', 'User updated successfully.');
         $this->redirect('users/' . $id);
@@ -114,7 +120,7 @@ class UsersController extends BaseController
     
     public function destroy($id)
     {
-        $this->userModel->delete($id);
+        $this->dataManager->deleteUser($id);
         
         \Session::flash('success', 'User deleted successfully.');
         $this->redirect('users');

@@ -18,7 +18,7 @@ return [
     'public_path' => __DIR__ . '/../..',
     
     // Default controller and method
-    'default_controller' => 'Dashboard',
+    'default_controller' => 'DashboardController',
     'default_method' => 'index',
     
     // Pagination

@@ -17,7 +17,12 @@ class BaseController
             throw new \Exception("View {$view} not found.");
         }
         
-        require $viewFile;
+        // Set the view file path for the layout to include
+        $view = $viewFile;
+        
+        // Include the layout, which will include the view
+        $layoutFile = \App::config('base_path') . "/views/layouts/app.php";
+        require $layoutFile;
     }
     
     protected function redirect($path)

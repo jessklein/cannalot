@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "title": "Update server security patches",
+        "description": "Apply latest security updates to production servers",
+        "assigned_to": 1,
+        "department_id": 1,
+        "priority": "high",
+        "status": "todo",
+        "due_date": "2025-07-12",
+        "created_at": "2025-07-09 15:51:53"
+    },
+    {
+        "id": 2,
+        "title": "Code review for new feature",
+        "description": "Review pull request for authentication module",
+        "assigned_to": 2,
+        "department_id": 2,
+        "priority": "medium",
+        "status": "in_progress",
+        "due_date": "2025-07-14",
+        "created_at": "2025-07-09 15:51:53"
+    },
+    {
+        "id": 3,
+        "title": "Prepare monthly client report",
+        "description": "Compile and format monthly progress report",
+        "assigned_to": 3,
+        "department_id": 3,
+        "priority": "medium",
+        "status": "todo",
+        "due_date": "2025-07-16",
+        "created_at": "2025-07-09 15:51:53"
+    },
+    {
+        "id": 4,
+        "title": "Database optimization",
+        "description": "Optimize slow-running queries in main database",
+        "assigned_to": 4,
+        "department_id": 1,
+        "priority": "low",
+        "status": "completed",
+        "due_date": "2025-07-07",
+        "created_at": "2025-07-09 15:51:53"
+    },
+    {
+        "id": 5,
+        "title": "Social media campaign setup",
+        "description": "Set up new campaign for Q3 launch",
+        "assigned_to": 5,
+        "department_id": 4,
+        "priority": "medium",
+        "status": "in_progress",
+        "due_date": "2025-07-19",
+        "created_at": "2025-07-09 15:51:53"
+    }
+]

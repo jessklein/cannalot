@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Cannabis Strain A",
+        "price": 25.99,
+        "stock": 50,
+        "created_at": "2025-07-09 15:19:22"
+    },
+    {
+        "id": 2,
+        "name": "Cannabis Strain B",
+        "price": 30.99,
+        "stock": 35,
+        "created_at": "2025-07-09 15:19:22"
+    },
+    {
+        "id": 3,
+        "name": "CBD Oil 500mg",
+        "price": 45.99,
+        "stock": 20,
+        "created_at": "2025-07-09 15:19:22"
+    },
+    {
+        "id": 4,
+        "name": "Edibles Pack",
+        "price": 15.99,
+        "stock": 100,
+        "created_at": "2025-07-09 15:19:22"
+    },
+    {
+        "id": 5,
+        "name": "Vape Cartridge",
+        "price": 35.99,
+        "stock": 25,
+        "created_at": "2025-07-09 15:19:22"
+    }
+]

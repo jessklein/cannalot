@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "title": "Website loading slowly",
+        "description": "Client reports website performance issues",
+        "client_id": 1,
+        "department_id": 1,
+        "assigned_to": 2,
+        "priority": "high",
+        "status": "open",
+        "created_at": "2025-07-09 15:51:53"
+    },
+    {
+        "id": 2,
+        "title": "Email integration needed",
+        "description": "Integrate email system with CRM",
+        "client_id": 2,
+        "department_id": 2,
+        "assigned_to": 3,
+        "priority": "medium",
+        "status": "in_progress",
+        "created_at": "2025-07-09 15:51:53"
+    },
+    {
+        "id": 3,
+        "title": "Database backup failure",
+        "description": "Automated backup system not working",
+        "client_id": 4,
+        "department_id": 1,
+        "assigned_to": 1,
+        "priority": "high",
+        "status": "open",
+        "created_at": "2025-07-09 15:51:53"
+    },
+    {
+        "id": 4,
+        "title": "New feature request",
+        "description": "Client wants custom reporting feature",
+        "client_id": 3,
+        "department_id": 2,
+        "assigned_to": 4,
+        "priority": "low",
+        "status": "pending",
+        "created_at": "2025-07-09 15:51:53"
+    },
+    {
+        "id": 5,
+        "title": "Account access issue",
+        "description": "User cannot login to system",
+        "client_id": 5,
+        "department_id": 3,
+        "assigned_to": 5,
+        "priority": "medium",
+        "status": "resolved",
+        "created_at": "2025-07-09 15:51:53"
+    }
+]

@@ -30,10 +30,10 @@ function initializeDashboard() {
         });
     }
     
-    // Auto-refresh dashboard stats (every 30 seconds)
-    if (window.location.pathname === '/dashboard' || window.location.pathname === '/') {
-        setInterval(refreshDashboardStats, 30000);
-    }
+    // Auto-refresh dashboard stats (every 30 seconds) - DISABLED until API is implemented
+    // if (window.location.pathname === '/dashboard' || window.location.pathname === '/') {
+    //     setInterval(refreshDashboardStats, 30000);
+    // }
     
     // Initialize tooltips
     initializeTooltips();

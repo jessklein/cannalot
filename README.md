@@ -1,6 +1,45 @@
 # Cannalot Dashboard
 
-A modern, responsive dashboard/database platform built with PHP using MVC architecture.
+# Cannalot Dashboard
+
+A modern, responsive dashboard/database platform built with PHP using MVC architecture. **Now configured for cannalot.local domain with file-based storage support!**
+
+## ✨ NEW: File-Based Storage
+
+This application now works **without a database**! It uses JSON files for storage, making it perfect for quick setups and development.
+
+## Quick Start for cannalot.local
+
+### 1. Setup the Local Domain
+
+**Option A: Automatic Setup (Run as Administrator)**
+```powershell
+.\setup_local_domain.ps1
+```
+
+**Option B: Manual Setup**
+1. Open Notepad as Administrator
+2. Edit `C:\Windows\System32\drivers\etc\hosts`
+3. Add: `127.0.0.1 cannalot.local`
+4. Save the file
+
+### 2. Initialize Sample Data
+```bash
+php init_file_storage.php
+```
+
+### 3. Start the Server
+```bash
+php -S 0.0.0.0:8000
+```
+
+### 4. Access Your Dashboard
+- **Custom Domain**: http://cannalot.local:8000
+- **Localhost**: http://localhost:8000
+
+**Login Credentials:**
+- Email: `john@example.com`
+- Password: `password`
 
 ## Features
 

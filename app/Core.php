@@ -1,169 +1,181 @@
 <?php
 /**
- * Application Bootstrap
+ * Core Application Classes
  */
 
-class App 
+class App
 {
-    private static $container = [];
-    
+    protected static $registry = [];
+
     public static function bind($key, $value)
     {
-        static::$container[$key] = $value;
+        static::$registry[$key] = $value;
     }
-    
+
     public static function get($key)
     {
-        if (!array_key_exists($key, static::$container)) {
+        if (!array_key_exists($key, static::$registry)) {
             throw new Exception("No {$key} is bound in the container.");
         }
-        
-        return static::$container[$key];
+
+        return static::$registry[$key];
     }
-    
-    public static function config($key = null)
+
+    public static function config($key)
     {
         $config = static::get('config');
-        
-        if ($key === null) {
-            return $config;
-        }
-        
         return $config[$key] ?? null;
     }
 }
 
-/**
- * Database Connection Manager
- */
-class Database 
+class Database
 {
-    private static $connection;
-    
     public static function connect($config)
     {
-        $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['database']};charset={$config['charset']}";
-        
-        static::$connection = new PDO($dsn, $config['username'], $config['password'], $config['options']);
-        
-        return static::$connection;
-    }
-    
-    public static function connection()
-    {
-        return static::$connection;
-    }
-    
-    public static function query($sql, $params = [])
-    {
-        $statement = static::$connection->prepare($sql);
-        $statement->execute($params);
-        
-        return $statement;
+        try {
+            // Check if this is SQLite configuration
+            if (isset($config['database']) && !isset($config['host'])) {
+                // SQLite connection
+                $dbPath = $config['database'];
+                
+                // If it's a relative path, make it relative to the public directory
+                if (!file_exists($dbPath)) {
+                    $dbPath = __DIR__ . '/../' . $config['database'];
+                }
+                
+                $dsn = "sqlite:{$dbPath}";
+                $pdo = new PDO($dsn, null, null, $config['options'] ?? [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                ]);
+                
+                // Enable foreign keys for SQLite
+                $pdo->exec('PRAGMA foreign_keys = ON');
+                
+                return $pdo;
+            } else {
+                // MySQL connection
+                $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['database']};charset={$config['charset']}";
+                $pdo = new PDO($dsn, $config['username'], $config['password'], $config['options']);
+                return $pdo;
+            }
+        } catch (PDOException $e) {
+            throw new Exception('Database connection failed: ' . $e->getMessage());
+        }
     }
 }
 
-/**
- * Router Class
- */
-class Router 
+class Router
 {
-    private $routes = [];
-    
+    protected $routes = [
+        'GET' => [],
+        'POST' => []
+    ];
+
     public function get($uri, $controller)
     {
         $this->routes['GET'][$uri] = $controller;
     }
-    
+
     public function post($uri, $controller)
     {
         $this->routes['POST'][$uri] = $controller;
     }
-    
+
     public function direct($uri, $requestType)
     {
+        // Remove query string
+        $uri = parse_url($uri, PHP_URL_PATH);
+        
+        // Remove leading slash
+        $uri = ltrim($uri, '/');
+        
+        // Check for exact match first
         if (array_key_exists($uri, $this->routes[$requestType])) {
-            return $this->callAction(
-                ...explode('@', $this->routes[$requestType][$uri])
-            );
+            return $this->callAction($this->routes[$requestType][$uri]);
         }
         
-        // Try to match dynamic routes
+        // Check for dynamic routes
         foreach ($this->routes[$requestType] as $route => $controller) {
-            $pattern = preg_replace('/\{[^}]+\}/', '([^/]+)', $route);
-            $pattern = str_replace('/', '\/', $pattern);
-            
-            if (preg_match('/^' . $pattern . '$/', $uri, $matches)) {
-                array_shift($matches); // Remove full match
-                return $this->callAction(
-                    ...explode('@', $controller), $matches
-                );
+            if ($this->matchRoute($route, $uri)) {
+                return $this->callAction($controller, $this->getRouteParams($route, $uri));
             }
         }
         
-        // Default routing
-        $segments = explode('/', trim($uri, '/'));
-        $controller = !empty($segments[0]) ? ucfirst($segments[0]) : App::config('default_controller');
-        $method = !empty($segments[1]) ? $segments[1] : App::config('default_method');
-        
-        return $this->callAction($controller, $method);
+        throw new Exception('No route defined for this URI.');
     }
-    
-    protected function callAction($controller, $method, $params = [])
+
+    protected function matchRoute($route, $uri)
     {
-        $controller = "App\\Controllers\\{$controller}Controller";
+        $routePattern = preg_replace('/\{[^}]+\}/', '([^/]+)', $route);
+        return preg_match("#^{$routePattern}$#", $uri);
+    }
+
+    protected function getRouteParams($route, $uri)
+    {
+        $routePattern = preg_replace('/\{([^}]+)\}/', '(?P<$1>[^/]+)', $route);
+        preg_match("#^{$routePattern}$#", $uri, $matches);
         
-        if (!class_exists($controller)) {
-            throw new Exception("Controller {$controller} does not exist.");
+        $params = [];
+        foreach ($matches as $key => $value) {
+            if (!is_numeric($key)) {
+                $params[$key] = $value;
+            }
         }
         
-        $controllerInstance = new $controller;
+        return $params;
+    }
+
+    protected function callAction($controller, $params = [])
+    {
+        list($class, $method) = explode('@', $controller);
+        
+        $class = "App\\Controllers\\{$class}";
+        
+        if (!class_exists($class)) {
+            throw new Exception("Controller {$class} does not exist.");
+        }
+        
+        $controllerInstance = new $class;
         
         if (!method_exists($controllerInstance, $method)) {
-            throw new Exception("Method {$method} does not exist on controller {$controller}.");
+            throw new Exception("Method {$method} does not exist on controller {$class}.");
         }
         
-        return call_user_func_array([$controllerInstance, $method], $params);
+        // Fixed: Use call_user_func_array instead of argument unpacking
+        return call_user_func_array([$controllerInstance, $method], array_values($params));
     }
 }
 
-/**
- * Request Helper
- */
-class Request 
+class Request
 {
     public static function uri()
     {
-        return trim(
-            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'
-        );
+        return trim($_SERVER['REQUEST_URI'], '/');
     }
-    
+
     public static function method()
     {
         return $_SERVER['REQUEST_METHOD'];
     }
-    
-    public static function all()
-    {
-        return $_REQUEST;
-    }
-    
+
     public static function get($key, $default = null)
     {
-        return $_REQUEST[$key] ?? $default;
+        return $_GET[$key] ?? $default;
     }
-    
-    public static function has($key)
+
+    public static function post($key, $default = null)
     {
-        return isset($_REQUEST[$key]);
+        return $_POST[$key] ?? $default;
+    }
+
+    public static function all()
+    {
+        return array_merge($_GET, $_POST);
     }
 }
 
-/**
- * Session Manager
- */
-class Session 
+class Session
 {
     public static function start()
     {
@@ -171,36 +183,41 @@ class Session
             session_start();
         }
     }
-    
-    public static function put($key, $value)
-    {
-        $_SESSION[$key] = $value;
-    }
-    
+
     public static function get($key, $default = null)
     {
         return $_SESSION[$key] ?? $default;
     }
-    
+
+    public static function set($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
     public static function has($key)
     {
         return isset($_SESSION[$key]);
     }
-    
+
     public static function forget($key)
     {
         unset($_SESSION[$key]);
     }
-    
+
     public static function flash($key, $value)
     {
         $_SESSION['flash'][$key] = $value;
     }
-    
-    public static function getFlash($key, $default = null)
+
+    public static function getFlash($key)
     {
-        $value = $_SESSION['flash'][$key] ?? $default;
+        $value = $_SESSION['flash'][$key] ?? null;
         unset($_SESSION['flash'][$key]);
         return $value;
+    }
+
+    public static function destroy()
+    {
+        session_destroy();
     }
 }

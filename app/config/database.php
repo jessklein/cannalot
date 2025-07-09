@@ -4,7 +4,7 @@
  */
 
 return [
-    'default' => 'mysql',
+    'default' => $_ENV['DB_CONNECTION'] ?? 'sqlite',
     
     'connections' => [
         'mysql' => [
@@ -19,6 +19,13 @@ return [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        ],
+        'sqlite' => [
+            'database' => $_ENV['DB_DATABASE'] ?? 'database.sqlite',
+            'options' => [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             ]
         ]
     ]

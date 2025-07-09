@@ -22,7 +22,7 @@
         <!-- Sidebar -->
         <aside class="w-64 bg-gray-800 text-white">
             <div class="p-4">
-                <h1 class="text-xl font-bold">Cannalot Dashboard</h1>
+                <h1 class="text-xl font-bold">Cannalot Internal Tools</h1>
             </div>
             
             <nav class="mt-8">
@@ -40,27 +40,33 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/products" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
-                            <i class="fas fa-box mr-3"></i>
-                            Products
+                        <a href="/clients" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                            <i class="fas fa-building mr-3"></i>
+                            Clients
                         </a>
                     </li>
                     <li>
-                        <a href="/orders" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
-                            <i class="fas fa-shopping-cart mr-3"></i>
-                            Orders
+                        <a href="/tickets" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                            <i class="fas fa-ticket-alt mr-3"></i>
+                            Tickets
                         </a>
                     </li>
                     <li>
-                        <a href="/analytics" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                        <a href="/tasks" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                            <i class="fas fa-tasks mr-3"></i>
+                            Tasks
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/departments" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                            <i class="fas fa-sitemap mr-3"></i>
+                            Departments
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/reports" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
                             <i class="fas fa-chart-bar mr-3"></i>
-                            Analytics
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/settings" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
-                            <i class="fas fa-cog mr-3"></i>
-                            Settings
+                            Reports
                         </a>
                     </li>
                 </ul>

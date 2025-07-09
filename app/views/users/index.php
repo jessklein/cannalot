@@ -1,5 +1,3 @@
-<?php $view = __FILE__; require __DIR__ . '/../layouts/app.php'; ?>
-
 <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold text-gray-900">Users Management</h1>
     <a href="/users/create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
