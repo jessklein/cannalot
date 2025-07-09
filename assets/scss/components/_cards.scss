@@ -1,0 +1,65 @@
+// Card Component Styles
+// ===========================================================================
+
+.card {
+  @include card;
+  
+  .card-header {
+    @include card-padding;
+    border-bottom: 1px solid $gray-200;
+    background-color: $gray-50;
+    
+    .card-title {
+      margin: 0;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+    }
+  }
+  
+  .card-body {
+    @include card-padding;
+  }
+  
+  .card-footer {
+    @include card-padding;
+    border-top: 1px solid $gray-200;
+    background-color: $gray-50;
+  }
+}
+
+// Stats cards
+.stats-card {
+  @include card;
+  @include card-padding;
+  
+  .stats-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    i {
+      font-size: $font-size-xl;
+      color: white;
+    }
+  }
+  
+  .stats-content {
+    margin-left: $spacing-lg;
+    
+    .stats-title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $gray-700;
+      margin-bottom: $spacing-xs;
+    }
+    
+    .stats-value {
+      font-size: $font-size-3xl;
+      font-weight: $font-weight-bold;
+      color: $gray-900;
+    }
+  }
+}

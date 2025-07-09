@@ -22,7 +22,7 @@
         <!-- Sidebar -->
         <aside class="w-64 bg-gray-800 text-white">
             <div class="p-4">
-                <h1 class="text-xl font-bold">Cannalot Internal Tools</h1>
+                <h1 class="text-xl font-bold">Cannalot</h1>
             </div>
             
             <nav class="mt-8">

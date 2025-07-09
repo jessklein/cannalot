@@ -1,0 +1,24 @@
+{
+  "name": "cannalot-dashboard",
+  "version": "1.0.0",
+  "description": "A modern PHP dashboard with Sass support",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass assets/scss:assets/css --watch",
+    "sass:build": "sass assets/scss:assets/css --style=compressed",
+    "sass:dev": "sass assets/scss:assets/css --watch --source-map",
+    "build": "npm run sass:build",
+    "dev": "npm run sass:dev"
+  },
+  "keywords": [
+    "php",
+    "dashboard",
+    "sass",
+    "tailwind"
+  ],
+  "author": "Cannalot Team",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.69.5"
+  }
+}

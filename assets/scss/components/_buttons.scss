@@ -1,0 +1,89 @@
+// Button Component Styles
+// ===========================================================================
+
+.btn {
+  @include button-base;
+  @include button-size($spacing-sm, $spacing-lg, $font-size-base);
+  
+  // Button sizes
+  &.btn-sm {
+    @include button-size($spacing-xs, $spacing-md, $font-size-sm);
+  }
+  
+  &.btn-lg {
+    @include button-size($spacing-md, $spacing-xl, $font-size-lg);
+  }
+  
+  // Button variants
+  &.btn-primary {
+    @include button-variant($primary-color);
+  }
+  
+  &.btn-secondary {
+    @include button-variant($gray-600);
+  }
+  
+  &.btn-success {
+    @include button-variant($success-color);
+  }
+  
+  &.btn-warning {
+    @include button-variant($warning-color);
+  }
+  
+  &.btn-danger {
+    @include button-variant($danger-color);
+  }
+  
+  &.btn-info {
+    @include button-variant($info-color);
+  }
+  
+  // Outline variants
+  &.btn-outline-primary {
+    @include button-variant(transparent, $primary-color, $primary-color);
+  }
+  
+  &.btn-outline-secondary {
+    @include button-variant(transparent, $gray-600, $gray-600);
+  }
+  
+  // Block button
+  &.btn-block {
+    width: 100%;
+  }
+  
+  // Icon spacing
+  i {
+    &:first-child:not(:last-child) {
+      margin-right: $spacing-xs;
+    }
+    
+    &:last-child:not(:first-child) {
+      margin-left: $spacing-xs;
+    }
+  }
+}
+
+// Button groups
+.btn-group {
+  display: inline-flex;
+  
+  .btn {
+    border-radius: 0;
+    
+    &:first-child {
+      border-top-left-radius: $border-radius-md;
+      border-bottom-left-radius: $border-radius-md;
+    }
+    
+    &:last-child {
+      border-top-right-radius: $border-radius-md;
+      border-bottom-right-radius: $border-radius-md;
+    }
+    
+    &:not(:first-child) {
+      border-left: none;
+    }
+  }
+}

@@ -18,7 +18,7 @@ This application now works **without a database**! It uses JSON files for storag
 ```
 
 **Option B: Manual Setup**
-1. Open Notepad as Administrator
+1. Open editor as Administrator
 2. Edit `C:\Windows\System32\drivers\etc\hosts`
 3. Add: `127.0.0.1 cannalot.local`
 4. Save the file
@@ -43,13 +43,40 @@ php -S 0.0.0.0:8000
 
 ## Features
 
-- **Modern UI**: Clean, responsive design using Tailwind CSS
+- **Modern UI**: Clean, responsive design using Tailwind CSS + Custom Sass
+- **Sass/SCSS Support**: Advanced CSS preprocessing with organized component structure
 - **MVC Architecture**: Well-organized Model-View-Controller pattern
 - **Database Management**: Full CRUD operations with pagination
 - **User Management**: Complete user lifecycle management
 - **Dashboard Analytics**: Interactive charts and statistics
 - **Responsive Design**: Mobile-friendly interface
 - **Security**: Input validation, password hashing, and secure sessions
+
+## Sass Development
+
+This project includes a complete Sass setup for advanced CSS development:
+
+### CSS Build Process
+```bash
+# Install dependencies
+npm install
+
+# Development (watch mode with source maps)
+npm run dev
+
+# Production build (compressed)
+npm run build
+```
+
+### Sass Structure
+- **Variables**: Centralized design tokens in `assets/scss/utilities/_variables.scss`
+- **Mixins**: Reusable style patterns in `assets/scss/utilities/_mixins.scss`
+- **Components**: Modular UI components (buttons, forms, cards, etc.)
+- **Layouts**: Page structure styles (sidebar, header, main content)
+- **Pages**: Page-specific styling
+- **Utilities**: Helper classes and animations
+
+For detailed Sass documentation, see [SASS_README.md](SASS_README.md)
 
 ## Architecture Overview
 
@@ -77,7 +104,10 @@ cannalot/
 │   └── Core.php         # Core framework classes
 └── public/              # Web root
     ├── assets/          # CSS, JS, images
+    │   ├── scss/        # Sass source files
+    │   └── css/         # Compiled CSS files
     ├── uploads/         # File uploads
+    ├── package.json     # Node.js dependencies
     └── index.php        # Entry point
 ```
 
@@ -86,7 +116,8 @@ cannalot/
 ### Prerequisites
 
 - PHP 7.4 or higher
-- MySQL 5.7 or higher
+- Node.js 16+ (for Sass compilation)
+- MySQL 5.7 or higher (optional - can use file storage)
 - Web server (Apache/Nginx)
 
 ### Setup Steps
@@ -94,10 +125,20 @@ cannalot/
 1. **Clone the repository**
    ```bash
    git clone <repository-url> cannalot
-   cd cannalot
+   cd cannalot/app/public
    ```
 
-2. **Configure Environment**
+2. **Install Node.js dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Build CSS from Sass**
+   ```bash
+   npm run build
+   ```
+
+4. **Configure Environment**
    ```bash
    cp app/.env.example app/.env
    ```

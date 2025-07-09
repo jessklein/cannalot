@@ -1,0 +1,38 @@
+// Main Sass file for Cannalot Dashboard
+// ===========================================================================
+
+// Variables & Configuration
+@import 'utilities/variables';
+@import 'utilities/mixins';
+@import 'utilities/functions';
+
+// Base styles
+@import 'utilities/reset';
+@import 'utilities/typography';
+
+// Layout components
+@import 'layouts/sidebar';
+@import 'layouts/header';
+@import 'layouts/main';
+
+// UI Components
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/cards';
+@import 'components/tables';
+@import 'components/modals';
+@import 'components/alerts';
+@import 'components/badges';
+
+// Page-specific styles
+@import 'pages/dashboard';
+@import 'pages/inbox';
+@import 'pages/tickets';
+@import 'pages/tasks';
+@import 'pages/clients';
+@import 'pages/services';
+@import 'pages/billing';
+
+// Utility classes
+@import 'utilities/helpers';
+@import 'utilities/animations';

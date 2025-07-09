@@ -1,0 +1,90 @@
+// Badge Component Styles
+// ===========================================================================
+
+.badge {
+  @include badge($gray-500);
+  
+  // Badge variants
+  &.badge-primary {
+    @include badge($primary-color);
+  }
+  
+  &.badge-secondary {
+    @include badge($gray-500);
+  }
+  
+  &.badge-success {
+    @include badge($success-color);
+  }
+  
+  &.badge-warning {
+    @include badge($warning-color, $gray-900);
+  }
+  
+  &.badge-danger {
+    @include badge($danger-color);
+  }
+  
+  &.badge-info {
+    @include badge($info-color);
+  }
+  
+  // Light variants
+  &.badge-light-primary {
+    @include badge(rgba($primary-color, 0.1), $primary-color);
+  }
+  
+  &.badge-light-success {
+    @include badge(rgba($success-color, 0.1), darken($success-color, 10%));
+  }
+  
+  &.badge-light-warning {
+    @include badge(rgba($warning-color, 0.1), darken($warning-color, 15%));
+  }
+  
+  &.badge-light-danger {
+    @include badge(rgba($danger-color, 0.1), $danger-color);
+  }
+  
+  &.badge-light-info {
+    @include badge(rgba($info-color, 0.1), darken($info-color, 10%));
+  }
+}
+
+// Status badges
+.status-badge {
+  &.status-open {
+    @include badge(rgba($primary-color, 0.1), $primary-color);
+  }
+  
+  &.status-in-progress {
+    @include badge(rgba($warning-color, 0.1), darken($warning-color, 15%));
+  }
+  
+  &.status-resolved {
+    @include badge(rgba($success-color, 0.1), darken($success-color, 10%));
+  }
+  
+  &.status-closed {
+    @include badge(rgba($gray-500, 0.1), $gray-600);
+  }
+}
+
+// Priority badges
+.priority-badge {
+  &.priority-low {
+    @include badge(rgba($gray-500, 0.1), $gray-600);
+  }
+  
+  &.priority-medium {
+    @include badge(rgba($warning-color, 0.1), darken($warning-color, 15%));
+  }
+  
+  &.priority-high {
+    @include badge(rgba(#f97316, 0.1), #f97316);
+  }
+  
+  &.priority-urgent {
+    @include badge(rgba($danger-color, 0.1), $danger-color);
+  }
+}

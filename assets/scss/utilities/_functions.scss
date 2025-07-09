@@ -1,0 +1,70 @@
+// Functions for Cannalot Dashboard
+// ===========================================================================
+
+// Convert pixels to rem
+@function rem($pixels, $base: 16px) {
+  @return #{$pixels / $base}rem;
+}
+
+// Convert pixels to em
+@function em($pixels, $base: 16px) {
+  @return #{$pixels / $base}em;
+}
+
+// Lighten color by percentage
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+// Darken color by percentage
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+// Calculate contrast ratio
+@function contrast-ratio($color1, $color2) {
+  $l1: luminance($color1);
+  $l2: luminance($color2);
+  
+  @if $l1 > $l2 {
+    @return ($l1 + 0.05) / ($l2 + 0.05);
+  } @else {
+    @return ($l2 + 0.05) / ($l1 + 0.05);
+  }
+}
+
+// Calculate luminance of a color
+@function luminance($color) {
+  $red: red($color) / 255;
+  $green: green($color) / 255;
+  $blue: blue($color) / 255;
+  
+  $red: if($red < 0.03928, $red / 12.92, pow(($red + 0.055) / 1.055, 2.4));
+  $green: if($green < 0.03928, $green / 12.92, pow(($green + 0.055) / 1.055, 2.4));
+  $blue: if($blue < 0.03928, $blue / 12.92, pow(($blue + 0.055) / 1.055, 2.4));
+  
+  @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
+}
+
+// Get appropriate text color based on background
+@function text-color($bg-color) {
+  @if contrast-ratio($bg-color, white) > 4.5 {
+    @return white;
+  } @else {
+    @return $gray-900;
+  }
+}
+
+// Strip units from a value
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// Get map value with fallback
+@function map-get-fallback($map, $key, $fallback) {
+  @if map-has-key($map, $key) {
+    @return map-get($map, $key);
+  } @else {
+    @return $fallback;
+  }
+}

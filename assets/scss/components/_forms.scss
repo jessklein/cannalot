@@ -1,0 +1,132 @@
+// Form Component Styles
+// ===========================================================================
+
+.form-group {
+  margin-bottom: $spacing-lg;
+  
+  label {
+    @include form-label;
+  }
+  
+  .form-control {
+    @include form-input;
+    
+    &.is-invalid {
+      border-color: $danger-color;
+      
+      &:focus {
+        border-color: $danger-color;
+        box-shadow: 0 0 0 3px rgba($danger-color, 0.1);
+      }
+    }
+    
+    &.is-valid {
+      border-color: $success-color;
+      
+      &:focus {
+        border-color: $success-color;
+        box-shadow: 0 0 0 3px rgba($success-color, 0.1);
+      }
+    }
+  }
+  
+  select.form-control {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    padding-right: 2.5rem;
+    appearance: none;
+  }
+  
+  textarea.form-control {
+    resize: vertical;
+    min-height: 6rem;
+  }
+  
+  .form-text {
+    font-size: $font-size-sm;
+    color: $gray-500;
+    margin-top: $spacing-xs;
+  }
+  
+  .invalid-feedback {
+    font-size: $font-size-sm;
+    color: $danger-color;
+    margin-top: $spacing-xs;
+  }
+  
+  .valid-feedback {
+    font-size: $font-size-sm;
+    color: $success-color;
+    margin-top: $spacing-xs;
+  }
+}
+
+// Input groups
+.input-group {
+  display: flex;
+  
+  .input-group-prepend,
+  .input-group-append {
+    display: flex;
+    align-items: center;
+    
+    .input-group-text {
+      padding: $spacing-sm $spacing-md;
+      background-color: $gray-50;
+      border: 1px solid $gray-300;
+      color: $gray-500;
+      font-size: $font-size-base;
+    }
+  }
+  
+  .input-group-prepend {
+    .input-group-text {
+      border-right: none;
+      border-top-left-radius: $border-radius-md;
+      border-bottom-left-radius: $border-radius-md;
+    }
+    
+    + .form-control {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+  
+  .input-group-append {
+    .input-group-text {
+      border-left: none;
+      border-top-right-radius: $border-radius-md;
+      border-bottom-right-radius: $border-radius-md;
+    }
+  }
+  
+  .form-control {
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+    
+    &:last-child:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+// Checkboxes and radios
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+  
+  .form-check-input {
+    margin-right: $spacing-sm;
+    margin-top: 0;
+  }
+  
+  .form-check-label {
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+}
